@@ -4,5 +4,5 @@ The script is designed to run all day and uses https://parthianclimbing.com/read
 
 
 
-##TODO
+## TODO
 Track all four Parthian Gyms
