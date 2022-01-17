@@ -12,6 +12,7 @@ def next_available_row(worksheet):
 
 
 if __name__ == "__main__":
+    print("Tracking started")
     while True:
         # Get date time and convert to a string
         time_now = datetime.datetime.now()
@@ -45,26 +46,27 @@ if __name__ == "__main__":
                 "climbers in reading",
             )
 
-            # Connect to google sheets
-            scopes = [
-                "https://www.googleapis.com/auth/spreadsheets",
-                "https://www.googleapis.com/auth/drive",
-            ]
-            credentials = ServiceAccountCredentials.from_json_keyfile_name(
-                "climbing-counts-log-794cb7217642.json", scopes
-            )  # access the json key you downloaded earlier
-            file = gspread.authorize(
-                credentials
-            )  # authenticate the JSON key with gspread
-            sheet = file.open("Climbing")  # open sheet
-            sheet = (
-                sheet.sheet1
-            )  # replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
+            if data["REA"]["count"] < 0:
+                # Connect to google sheets
+                scopes = [
+                    "https://www.googleapis.com/auth/spreadsheets",
+                    "https://www.googleapis.com/auth/drive",
+                ]
+                credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                    "climbing-counts-log-794cb7217642.json", scopes
+                )  # access the json key you downloaded earlier
+                file = gspread.authorize(
+                    credentials
+                )  # authenticate the JSON key with gspread
+                sheet = file.open("Climbing")  # open sheet
+                sheet = (
+                    sheet.sheet1
+                )  # replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
 
-            # Commit the data
-            next_row = next_available_row(sheet)
-            sheet.update_acell(f"A{next_row}", date)
-            sheet.update_acell(f"B{next_row}", day)
-            sheet.update_acell(f"C{next_row}", hour)
-            sheet.update_acell(f"D{next_row}", minute)
-            sheet.update_acell(f"E{next_row}", data["REA"]["count"])
+                # Commit the data
+                next_row = next_available_row(sheet)
+                sheet.update_acell(f"A{next_row}", date)
+                sheet.update_acell(f"B{next_row}", day)
+                sheet.update_acell(f"C{next_row}", hour)
+                sheet.update_acell(f"D{next_row}", minute)
+                sheet.update_acell(f"E{next_row}", data["REA"]["count"])
