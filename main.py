@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 "climbers in reading",
             )
 
-            if data["REA"]["count"] < 0:
+            if data["REA"]["count"] > 0:
                 # Connect to google sheets
                 scopes = [
                     "https://www.googleapis.com/auth/spreadsheets",
